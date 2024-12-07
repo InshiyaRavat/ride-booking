@@ -23,7 +23,7 @@ const Header = () => {
           {headerMenu.map((item)=>(
             <div key={item.id} className='flex gap-2 items-center'>
               <Image src={item.icon} width={17} height={17}/>
-              <h2 className='text-[14px] font-medium text-black'>{item.name}</h2>
+              <h2 className='text-[18px] font-medium text-black'>{item.name}</h2>
             </div>
           ))}
         </div>

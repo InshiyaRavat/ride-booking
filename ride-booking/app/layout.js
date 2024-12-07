@@ -1,10 +1,10 @@
 import localFont from "next/font/local";
-import {Pacifico} from 'next/font/google';
+import {Iceberg} from 'next/font/google';
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Header from "../components/Header"
 
-const pacifico = Pacifico({ subsets: ["latin"], weight: '400' });
+const pacifico = Iceberg({ subsets: ["latin"], weight: '400' });
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
