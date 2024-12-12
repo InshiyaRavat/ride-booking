@@ -1,8 +1,11 @@
 import localFont from "next/font/local";
 import {Iceberg} from 'next/font/google';
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs"
 import Header from "../components/Header"
+import { LocationContext } from "../components/Home/LocationContext"
+import 'leaflet/dist/leaflet.css'
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 
 const pacifico = Iceberg({ subsets: ["latin"], weight: '400' });
 const geistSans = localFont({
@@ -25,6 +28,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
+       <LocationContext>
       <html lang="en">
         <body
           className={`${pacifico.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -32,7 +36,8 @@ export default function RootLayout({ children }) {
           <Header/>
           {children}
         </body>      
-      </html>      
+      </html>   
+      </LocationContext>   
     </ClerkProvider>
   );
 }

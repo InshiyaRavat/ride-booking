@@ -1,10 +1,12 @@
 'use client'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import {locationContext} from "../Home/LocationContext"
 
 const InputItem = (props) => {
   const [source,setSource] = useState("")
   const [result,setResult] = useState([])
+  const {setLats,setLongs} = useContext(locationContext)
 
   const handleChange = async (event) =>{
     setSource(event.target.value)
@@ -33,7 +35,7 @@ const InputItem = (props) => {
             placeholder={props.typeLoc =='source' ? 'Pickup Location' :'DropOff Location'}
             className='bg-transparent w-full outline-none text-black'/>
       </div>
-      </div>
+    </div>
       {result.length > 0 && (
         <ul className="bg-white border border-gray-300 rounded-lg max-h-60 overflow-auto">
           {result.map((suggestion,index)=>(
@@ -41,7 +43,11 @@ const InputItem = (props) => {
               key = {index}
               className="cursor-pointer text-black hover:bg-gray-200 p-2"
               onClick={() => {
-                setSource(suggestion.display_name);
+                console.log("latitude: ",suggestion.lat)
+                console.log("longitude: ", suggestion.lon)
+                setSource(suggestion.display_name)
+                setLats((prevLats)=>[...prevLats,suggestion.lat])                
+                setLongs((prevLongs)=>[...prevLongs,suggestion.lon])                
                 setResult([])
               }}>
                 {suggestion.display_name}
