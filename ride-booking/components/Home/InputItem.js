@@ -6,7 +6,7 @@ import {locationContext} from "../Home/LocationContext"
 const InputItem = (props) => {
   const [source,setSource] = useState("")
   const [result,setResult] = useState([])
-  const {setLats,setLongs} = useContext(locationContext)
+  const {lats,longs,setLats,setLongs} = useContext(locationContext)
 
   const handleChange = async (event) =>{
     setSource(event.target.value)
@@ -47,7 +47,9 @@ const InputItem = (props) => {
                 console.log("longitude: ", suggestion.lon)
                 setSource(suggestion.display_name)
                 setLats((prevLats)=>[...prevLats,suggestion.lat])                
-                setLongs((prevLongs)=>[...prevLongs,suggestion.lon])                
+                setLongs((prevLongs)=>[...prevLongs,suggestion.lon])   
+                console.log(lats)
+                console.log(longs)             
                 setResult([])
               }}>
                 {suggestion.display_name}

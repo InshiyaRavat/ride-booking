@@ -15,8 +15,7 @@ const SearchSection = () => {
           <p className='text-2xl font-bold text-[#001D3D]'>Get a Ride</p>
           <InputItem typeLoc='source'/>
           <InputItem typeLoc='destination'/>
-          <SearchButton/> 
-          {lats.length > 1 && longs.length > 1 && <GoogleMapSection lats={lats} longs={longs} />}       
+          <SearchButton/>     
       </div>
     </locationContext.Provider>
   )
