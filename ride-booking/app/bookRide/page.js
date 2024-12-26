@@ -1,9 +1,11 @@
 'use client'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState} from 'react'
 
 export default function BookRide() {
     const [distance, setDistance] = useState(0)
+    const router = useRouter()
 
     useEffect(() => {
         const queryDistance = new URLSearchParams(window.location.search).get('distance')
@@ -12,6 +14,9 @@ export default function BookRide() {
         }
     }, [])
 
+    const handleClick = async (e) => {
+        router.push(`/payment?amount=${e.target.value}`)
+    }
     const travelOptions = [
         {
             id: 1,
@@ -147,11 +152,9 @@ export default function BookRide() {
                                 $ {(option.amount * distance).toFixed(2)}
                             </h4>
                         </div>
-                        <a href='https://buy.stripe.com/test_7sI3efgNA67S5mo5kk'>
-                            <button className="px-4 py-2 bg-[#001D3D] text-white rounded hover:bg-[#003366]">
-                                Book
-                            </button>
-                        </a>
+                        <button onClick={handleClick} value={(option.amount * distance).toFixed(2)} className="px-4 py-2 bg-[#001D3D] text-white rounded hover:bg-[#003366]">
+                            Book
+                        </button>
                     </div>
                 ))}
             </div>
