@@ -1,8 +1,20 @@
+'use client'
 import { UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Header = () => {
+  const router = useRouter()
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    if(e.target.name === 'Ride'){
+      router.push('/')
+    }else{
+      router.push('/history')
+    }
+  }
   const headerMenu = [
     {
       id : 1,
@@ -10,8 +22,8 @@ const Header = () => {
       icon : '/ride.jpg'
     },
     {
-      id : 1,
-      name : 'Package',
+      id : 2,
+      name : 'History',
       icon : '/box.jpg'
     }
   ]
@@ -23,7 +35,7 @@ const Header = () => {
           {headerMenu.map((item)=>(
             <div key={item.id} className='flex gap-2 items-center'>
               <Image src={item.icon} width={17} height={17}/>
-              <h2 className='text-[18px] font-medium text-black'>{item.name}</h2>
+              <button onClick={handleClick} name={item.name} className='text-[18px] font-medium text-black'>{item.name}</button>
             </div>
           ))}
         </div>

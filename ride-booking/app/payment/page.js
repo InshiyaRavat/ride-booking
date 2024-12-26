@@ -66,7 +66,7 @@ function PaymentForm() {
                 'Content-Type': 'application/json',
             },
             body : JSON.stringify({
-                uId : userId,
+                userid : userId,
                 date : today.toISOString().split('T')[0],
                 paid : amount,
             })
