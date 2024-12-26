@@ -1,7 +1,16 @@
+'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect, useState} from 'react'
 
 export default function BookRide() {
+    const [distance, setDistance] = useState(0)
+
+    useEffect(() => {
+        const queryDistance = new URLSearchParams(window.location.search).get('distance')
+        if (queryDistance) {
+        setDistance(queryDistance / 1000)
+        }
+    }, [])
 
     const travelOptions = [
         {
@@ -106,43 +115,52 @@ export default function BookRide() {
         <h2 className="text-2xl font-semibold text-center text-[#001D3D] mb-6">
             Book Your Ride Right Away! 🤩🚗
         </h2>
-        <div className="bg-white shadow-lg rounded-lg p-4">
-            {travelOptions.map((option, index) => (
-                <div
-                    key={index}
-                    className="flex items-center justify-between gap-5 border-b border-gray-200 py-4"
-                >
-                    <div className="flex items-center gap-5 flex-1">
-                        <Image
-                            src={option.image}
-                            alt="travel option"
-                            width={100}
-                            height={100}
-                            className="rounded"
-                        />
-                        <div className="flex-1">
-                            <h3 className="text-lg font-bold text-[#001D3D] mb-1">
-                                {option.name}
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                                {option.desc}
-                            </p>
+        {distance>0 ? (
+            <div className="bg-white shadow-lg rounded-lg p-4">
+                {travelOptions.map((option, index) => (
+                    <div
+                        key={index}
+                        className="flex items-center justify-between gap-5 border-b border-gray-200 py-4"
+                    >
+                        <div className="flex items-center gap-5 flex-1">
+                            <Image
+                                src={option.image}
+                                alt="travel option"
+                                width={100}
+                                height={100}
+                                className="rounded"
+                            />
+                            <div className="flex-1">
+                                <h3 className="text-lg font-bold text-[#001D3D] mb-1">
+                                    {option.name}
+                                </h3>
+                                <p className="text-sm text-gray-600">
+                                    {option.desc}
+                                </p>
+                            </div>
                         </div>
+                        <div className="text-right">
+                            <h4 className="text-sm text-gray-600 mb-1">
+                                Seats: {option.seat}
+                            </h4>
+                            <h4 className="text-lg font-semibold text-[#001D3D]">
+                                $ {(option.amount * distance).toFixed(2)}
+                            </h4>
+                        </div>
+                        <a href='https://buy.stripe.com/test_7sI3efgNA67S5mo5kk'>
+                            <button className="px-4 py-2 bg-[#001D3D] text-white rounded hover:bg-[#003366]">
+                                Book
+                            </button>
+                        </a>
                     </div>
-                    <div className="text-right">
-                        <h4 className="text-sm text-gray-600 mb-1">
-                            Seats: {option.seat}
-                        </h4>
-                        <h4 className="text-lg font-semibold text-[#001D3D]">
-                            $ {option.amount}
-                        </h4>
-                    </div>
-                    <button className="px-4 py-2 bg-[#001D3D] text-white rounded hover:bg-[#003366]">
-                        Book
-                    </button>
-                </div>
-            ))}
-        </div>
+                ))}
+            </div>
+            ) : (
+                <p className="text-center text-gray-600">
+                    Loading travel options... Please wait!
+                </p>
+            )
+        }
     </div>
   )
 }
