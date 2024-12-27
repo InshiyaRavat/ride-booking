@@ -35,6 +35,7 @@ function PaymentForm() {
     }
 
     try {
+      console.log(amount)
       const response = await fetch('/api/Payment', {
         method: 'POST',
         headers: {
